@@ -78,6 +78,8 @@ def main(user_eingabe='j'):
                     column_index = int(input("Bitte Zahl eingeben: "))
                 except ValueError:
                     print("Das war keine Zahl")
+                except IndexError:
+                    print("Bitte Spaltenzahl aus angegebener Liste eingeben")
                 else:
                     break
             main_column_name = df_main_columns[column_index]
@@ -85,6 +87,9 @@ def main(user_eingabe='j'):
             print(df_main_excel)
         user_eingabe = input("Weitere Dateinamen angeben (j/n)? \n")
         logging.debug(user_eingabe)
+
+    with pd.ExcelWriter('output.xlsx') as writer:
+        df_main_excel.to_excel(writer, sheet_name='Sheet_name_1', index=False)
 
 
 if __name__ == '__main__':
